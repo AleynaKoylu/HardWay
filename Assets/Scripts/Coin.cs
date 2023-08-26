@@ -20,7 +20,7 @@ public class Coin : MonoBehaviour
         if (childScript.takeMagnet == true)
         {
            
-            if (distance <= 3)
+            if (distance <= 5)
             {
                 transform.position = Vector3.MoveTowards(transform.position, Child.transform.position, 10 * Time.deltaTime);
             }

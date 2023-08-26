@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,9 +25,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     ChildScript childScript;
-    int score;
 
-   
+
+    [SerializeField]
+    TextMeshProUGUI ScoreTxt;
+    int score;
     void Start()
     {
         instantiate(Coin,30, Coins);
@@ -35,7 +38,9 @@ public class GameManager : MonoBehaviour
         instantiate(Ston, 5, Others);
         instantiate(Car, 5, Others);
         InvokeRepeating("ShowCoin", 0, .5f);
-        InvokeRepeating("ShowObstacles", 0, 5f);    
+        InvokeRepeating("ShowObstacles", 0, 5f);
+        ScoreTxt.text = "x" + score;
+        Time.timeScale = 1;
     }
     void instantiate(GameObject gObject, int count,List<GameObject> list)
     {
@@ -126,16 +131,14 @@ public class GameManager : MonoBehaviour
     public void AddScore(int value)
     {
         score += value;
+        ScoreTxt.text="x" + score;
         ReturnScore();
-        Debug.Log(score);
+        
     }
     public int ReturnScore()
     {
         return score;
     }
 
-    void Update()
-    {
-        
-    }
+    
 }

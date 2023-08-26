@@ -27,6 +27,11 @@ public class ChildScript : MonoBehaviour
 
     [SerializeField]
     GameObject Road1, Road2;
+
+    bool start = false;
+
+    [SerializeField]
+    GameObject LosePanel, PauseButton;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -36,7 +41,7 @@ public class ChildScript : MonoBehaviour
 
     void Update()
     {
-        //MouseControl();
+        MouseControl();
        
         TouchControl();
        
@@ -44,10 +49,17 @@ public class ChildScript : MonoBehaviour
 
     void MouseControl()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        
-        transform.Translate(horizontal ,transform.position.y, childSpeed*Time.deltaTime);
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(1.5f, transform.position.y, transform.position.z), directionSpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(-1.5f, transform.position.y, transform.position.z), directionSpeed * Time.deltaTime);
+        }
+
+        transform.Translate(0, 0, childSpeed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.W))
         {
             Jump();
         }
@@ -94,9 +106,17 @@ public class ChildScript : MonoBehaviour
             {
                 Jump();
             }
+            if (t.phase == TouchPhase.Began)
+            {
+                start = true;
+            }
 
         }
-        transform.Translate(0, 0, childSpeed * Time.deltaTime);
+        if (start == true)
+        {
+            transform.Translate(0, 0, childSpeed * Time.deltaTime);
+        }
+        
     }
    
     void Jump()
@@ -143,9 +163,11 @@ public class ChildScript : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Obstacles"))
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
-            Debug.Log("Kaybettin");
+            Time.timeScale = 0;
+            LosePanel.SetActive(true);
+            PauseButton.SetActive(false);
         }
     }
 
