@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - Road
   - Wall
+  - Car
   layers:
   - Default
   - TransparentFX

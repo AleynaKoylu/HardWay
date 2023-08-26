@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject Child;
 
+    [SerializeField]
+    ChildScript childScript;
+    int score;
+
    
     void Start()
     {
@@ -30,8 +34,8 @@ public class GameManager : MonoBehaviour
         instantiate(Magnet, 5, Others);
         instantiate(Ston, 5, Others);
         instantiate(Car, 5, Others);
-        InvokeRepeating("ShowCoin", 0, 1f);
-        InvokeRepeating("ShowObstacles", 3, 5f);    
+        InvokeRepeating("ShowCoin", 0, .5f);
+        InvokeRepeating("ShowObstacles", 0, 5f);    
     }
     void instantiate(GameObject gObject, int count,List<GameObject> list)
     {
@@ -56,11 +60,11 @@ public class GameManager : MonoBehaviour
                 int transformx = Random.Range(0, 2);
                 if (transformx == 0)
                 {
-                    c.transform.position = new Vector3(-1.3f, .75f, Child.transform.position.z + 2f);
+                    c.transform.position = new Vector3(-1.3f, .75f, Child.transform.position.z + 10f);
                 }
                 if (transformx == 1)
                 {
-                    c.transform.position = new Vector3(1.5f, .75f, Child.transform.position.z + 2f);
+                    c.transform.position = new Vector3(1.5f, .75f, Child.transform.position.z + 10f);
                 }
                 return;
             }
@@ -77,12 +81,20 @@ public class GameManager : MonoBehaviour
                  int transformx = Random.Range(0, 2);
                  if (transformx == 0)
                  {
-                     Others[oID].transform.position = new Vector3(-1.3f, Others[oID].transform.position.y, Child.transform.position.z + 2f);
+                     Others[oID].transform.position = new Vector3(-1.3f, Others[oID].transform.position.y, Child.transform.position.z +10f);
                  }
                  if (transformx == 1)
                  {
-                     Others[oID].transform.position = new Vector3(1.5f, Others[oID].transform.position.y, Child.transform.position.z + 2f);
+                     Others[oID].transform.position = new Vector3(1.5f, Others[oID].transform.position.y, Child.transform.position.z + 10f);
                  }
+                 if (childScript.takeMagnet == true)
+                 {
+                    if (Others[oID].CompareTag("Magnet"))
+                    {
+                        Others[oID].SetActive(false);
+                    }
+                 }  
+           
                   
             }
             else
@@ -92,17 +104,35 @@ public class GameManager : MonoBehaviour
                 int transformx = Random.Range(0, 2);
                 if (transformx == 0)
                 {
-                    Others[oID2].transform.position = new Vector3(-1.3f, Others[oID2].transform.position.y, Child.transform.position.z + 2f);
+                    Others[oID2].transform.position = new Vector3(-1.3f, Others[oID2].transform.position.y, Child.transform.position.z + 5f);
                 }
                 if (transformx == 1)
                 {
-                    Others[oID2].transform.position = new Vector3(1.5f, Others[oID2].transform.position.y, Child.transform.position.z + 2f);
+                    Others[oID2].transform.position = new Vector3(1.5f, Others[oID2].transform.position.y, Child.transform.position.z + 5f);
                 }
-                return;
+                
+            
+                if (childScript.takeMagnet == true)
+                {
+                    if (Others[oID2].CompareTag("Magnet"))
+                    {
+                        Others[oID2].SetActive(false);
+                    }
+                }
+            return;
             }
     }
     
-   
+    public void AddScore(int value)
+    {
+        score += value;
+        ReturnScore();
+        Debug.Log(score);
+    }
+    public int ReturnScore()
+    {
+        return score;
+    }
 
     void Update()
     {

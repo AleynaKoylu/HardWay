@@ -20,7 +20,13 @@ public class ChildScript : MonoBehaviour
 
     Animator animator;
 
-  
+    [SerializeField]
+    GameManager gameManager;
+
+    public bool takeMagnet;
+
+    [SerializeField]
+    GameObject Road1, Road2;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,10 +39,6 @@ public class ChildScript : MonoBehaviour
         //MouseControl();
        
         TouchControl();
-        if (aldý == true)
-        {
-           cn.gameObject.transform.position = Vector3.Lerp(cn.transform.position, transform.position, .1f);
-        }
        
     }
 
@@ -96,8 +98,7 @@ public class ChildScript : MonoBehaviour
         }
         transform.Translate(0, 0, childSpeed * Time.deltaTime);
     }
-    public GameObject cn;
-    bool aldý;
+   
     void Jump()
     {
         if (jump == false)
@@ -107,24 +108,45 @@ public class ChildScript : MonoBehaviour
             animator.SetTrigger("JumpUp");
         }
     }
+    void TakeMagnet()
+    {
+        takeMagnet = false;
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Road"))
+        if (other.gameObject==Road1)
         {
             
-            other.gameObject.transform.position = new Vector3(0,0, transform.position.z + 10);
+            Road2.transform.position = new Vector3(Road2.transform.position.x,Road2.transform.position.y, other.gameObject.transform.position.z + 10);
+        }
+        if (other.gameObject == Road2)
+        {
+
+            Road1.transform.position = new Vector3(Road1.transform.position.x, Road1.transform.position.y, other.gameObject.transform.position.z + 10);
         }
         if (other.gameObject.CompareTag("Coin")) 
         {
             other.gameObject.SetActive(false);
+            gameManager.AddScore(10); 
+            
 
         }
         if (other.gameObject.CompareTag("Magnet"))
         {
             other.gameObject.SetActive(false);
-            aldý = true;
+
+            takeMagnet = true;
+            Invoke("TakeMagnet", 10);
+          
         }
       
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacles"))
+        {
+            Debug.Log("Kaybettin");
+        }
     }
 
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8673345295014607282}
   - component: {fileID: 8673345295015738226}
   - component: {fileID: 8673345295015738227}
+  - component: {fileID: 8643557189217395048}
   m_Layer: 0
   m_Name: Ston
   m_TagString: Obstacle
@@ -97,3 +98,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8.938146, y: 12.503548, z: 9.674714}
   m_Center: {x: 1.032867, y: 0.87317437, z: 4.651219}
+--- !u!114 &8643557189217395048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8673345295013471666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92251fb0c9433044fbdb7871168942a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8153115710048764742}
   - component: {fileID: 8153115710047666566}
   - component: {fileID: 8153115710048764741}
+  - component: {fileID: 6123829652544836418}
   m_Layer: 0
   m_Name: Log
   m_TagString: Obstacle
@@ -97,3 +98,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 42.140312, y: 13.115859, z: 12.000003}
   m_Center: {x: -0.511611, y: 0.30383974, z: 0}
+--- !u!114 &6123829652544836418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8153115710049935174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92251fb0c9433044fbdb7871168942a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
