@@ -7,7 +7,7 @@ public class ChildScript : MonoBehaviour
     Rigidbody rb;
 
     float jumpValue = 5f;
-    float childSpeed = 1f;
+    float childSpeed = 5f;
     float directionSpeed=10;
 
     bool left;
@@ -19,6 +19,8 @@ public class ChildScript : MonoBehaviour
     GameObject jumpEffeckt;
 
     Animator animator;
+
+  
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -31,6 +33,11 @@ public class ChildScript : MonoBehaviour
         //MouseControl();
        
         TouchControl();
+        if (aldý == true)
+        {
+           cn.gameObject.transform.position = Vector3.Lerp(cn.transform.position, transform.position, .1f);
+        }
+       
     }
 
     void MouseControl()
@@ -70,7 +77,7 @@ public class ChildScript : MonoBehaviour
                 left = false;
                 right = true;
 
-                transform.position = Vector3.Lerp(transform.position, new Vector3(2f, transform.position.y,transform.position.z),directionSpeed*Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, new Vector3(1.5f, transform.position.y,transform.position.z),directionSpeed*Time.deltaTime);
                 
             }
             if (deltaPosx<= -50f)
@@ -78,7 +85,7 @@ public class ChildScript : MonoBehaviour
                 left = true;
                 right =false;
 
-                 transform.position=Vector3.Lerp(transform.position, new Vector3(-1.3f, transform.position.y, transform.position.z),directionSpeed* Time.deltaTime);
+                 transform.position=Vector3.Lerp(transform.position, new Vector3(-1.5f, transform.position.y, transform.position.z),directionSpeed* Time.deltaTime);
 
             }
             if (deltaPosy >=50)
@@ -89,7 +96,8 @@ public class ChildScript : MonoBehaviour
         }
         transform.Translate(0, 0, childSpeed * Time.deltaTime);
     }
-
+    public GameObject cn;
+    bool aldý;
     void Jump()
     {
         if (jump == false)
@@ -98,6 +106,25 @@ public class ChildScript : MonoBehaviour
             rb.velocity = Vector3.up * jumpValue ;
             animator.SetTrigger("JumpUp");
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Road"))
+        {
+            
+            other.gameObject.transform.position = new Vector3(0,0, transform.position.z + 10);
+        }
+        if (other.gameObject.CompareTag("Coin")) 
+        {
+            other.gameObject.SetActive(false);
+
+        }
+        if (other.gameObject.CompareTag("Magnet"))
+        {
+            other.gameObject.SetActive(false);
+            aldý = true;
+        }
+      
     }
 
 }

@@ -7,6 +7,8 @@ TagManager:
   - Magnet
   - Coin
   - Obstacle
+  - Road
+  - Wall
   layers:
   - Default
   - TransparentFX
